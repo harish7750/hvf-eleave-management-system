@@ -1,0 +1,238 @@
+/* Global Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Raleway', sans-serif;
+  background: url("image/tank2.jpg") no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: relative;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 0;
+}
+
+.dark-mode {
+  color: #f9f9f9;
+}
+
+/* Login Container */
+.login-container {
+  width: 360px;
+  padding: 40px 30px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  box-shadow: 0 0 25px rgba(0, 255, 136, 0.3);
+  backdrop-filter: blur(10px);
+  position: relative;
+  z-index: 1;
+  transition: box-shadow 0.3s ease, background 0.3s;
+}
+
+.login-container:hover {
+  box-shadow: 0 0 35px rgba(76, 175, 80, 0.4);
+}
+
+.dark-mode .login-container {
+  background: rgba(30, 30, 30, 0.8);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Heading */
+h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: bold;
+  color: #333;
+}
+
+.dark-mode h2 {
+  color: #fff;
+}
+
+/* Form Groups */
+.form-group {
+  margin-bottom: 25px;
+  position: relative;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: inherit;
+}
+
+/* Input Fields */
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px 42px;
+  font-size: 16px;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  background-color: #fff;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.15);
+  transition: 0.4s ease-in-out;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  border-color: #4CAF50;
+  box-shadow: 0 0 12px #4CAF50;
+  outline: none;
+}
+
+.dark-mode input[type="text"],
+.dark-mode input[type="password"] {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 2px solid transparent;
+}
+
+.dark-mode input[type="text"]:focus,
+.dark-mode input[type="password"]:focus {
+  box-shadow: 0 0 12px #00ffaa;
+}
+
+/* Input Icons */
+.input-icon {
+  position: absolute;
+  left: 12px;
+  top: 70%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.toggle-eye {
+  position: absolute;
+  right: 12px;
+  top: 70%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: 0.3s;
+}
+
+.toggle-eye:hover {
+  opacity: 1;
+}
+
+/* Login Button */
+.login-button {
+  width: 100%;
+  padding: 12px;
+  background: #4CAF50;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+  box-shadow: 0 0 12px #4CAF50;
+  transition: background 0.3s ease, box-shadow 0.3s;
+}
+
+.login-button:hover {
+  background-color: #43a047;
+  box-shadow: 0 0 20px #4CAF50, 0 0 30px #4CAF50;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: inherit;
+}
+
+.footer a {
+  color: #4CAF50;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.footer a:hover {
+  text-shadow: 0 0 6px #4CAF50;
+}
+
+/* Toggle Theme Button */
+.toggle-theme {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 2;
+}
+
+.toggle-theme button {
+  background-color: #ffffff;
+  border: 2px solid #4CAF50;
+  color: #4CAF50;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .toggle-theme button {
+  background-color: #2d2d2d;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.25);
+}
+
+.toggle-theme button:hover {
+  background-color: #4CAF50;
+  color: white;
+  box-shadow: 0 0 15px #4CAF50;
+}
+/* Heading */
+/* Main Title */
+.main-title {
+  position: absolute;
+  top: 20px;
+  text-align: center;
+  width: 100%;
+  font-size: 60px;
+  
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(0, 255, 128, 0.5);
+  font-family: 'Raleway', sans-serif;
+  z-index: 1;
+}
+
+.dark-mode .main-title {
+  color: #00ffcc;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
+}
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: 'Raleway', sans-serif;
+}

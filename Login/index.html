@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Leave Portal</title>
+
+  <!-- Local Raleway font -->
+  <style>
+    @font-face {
+      font-family: 'Raleway';
+      src: url("fonts/Raleway-Regular.ttf") format('truetype');
+    }
+  </style>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="light-mode">
+    
+
+  <div class="toggle-theme">
+    <button onclick="toggleTheme()">🌙 Toggle Mode</button>
+  </div>
+  <h1 class="main-title" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">HVF Leave Management System</h1>
+
+
+
+  <div class="login-container">
+    <h2>LOGIN</h2>
+    <form action="login.php" method="POST" onsubmit="return validateForm()">
+      <div class="form-group icon-input">
+        <label for="username">Username or Email</label>
+        <img src="icons/user.png" class="input-icon" alt="user icon">
+        <input type="text" id="username" name="username" required>
+      </div>
+
+      <div class="form-group icon-input">
+        <label for="password">Password</label>
+        <img src="icons/lock.png" class="input-icon" alt="lock icon">
+        <input type="password" id="password" name="password" required>
+        <img src="icons/eye.png" class="toggle-eye" onclick="togglePassword()" alt="eye icon">
+
+      </div>
+      <div class="form-group">
+      <label for="role">Choose Role</label>
+      <select id="role" name="role" required>
+      <option value="" disabled selected>Select your role</option>
+      <option value="officer">Officer</option>
+      <option value="admin">Employee</option>
+      </select>
+      </div>
+
+      <button type="submit" class="login-button">LOGIN</button>
+    </form>
+
+    <div class="footer">
+      Don't have an account? <a href="signup.html">Sign up</a>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up - HVF Leave Portal</title>
+
+    <!-- Local Raleway font -->
+    <style>
+      @font-face {
+        font-family: "Raleway";
+        src: url("fonts/Raleway-Regular.ttf") format("truetype");
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Raleway", sans-serif;
+        background: url("image/tank2.jpg") no-repeat center center fixed;
+        background-size: cover;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 100px; /* Space for title */
+      }
+
+      .main-title {
+        position: fixed;
+        top: 20px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 40px;
+        font-weight: 700;
+        color: #ffffff;
+        text-shadow: 0 0 10px rgba(0, 255, 128, 0.5);
+        font-family: "Raleway", sans-serif;
+        z-index: 2;
+        padding: 10px 20px;
+      }
+
+      .signup-container {
+        background: #ffffffd9;
+        padding: 30px 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        width: 90%;
+        max-width: 400px;
+        margin-top: 20px;
+        z-index: 1;
+      }
+
+      .signup-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 22px;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 500;
+      }
+
+      .form-group input,
+      .form-group select {
+        width: 100%;
+        padding: 10px;
+        font-size: 15px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        outline: none;
+      }
+
+      .signup-button {
+        width: 100%;
+        padding: 12px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      .signup-button:hover {
+        background-color: #45a049;
+      }
+
+      .footer {
+        text-align: center;
+        margin-top: 15px;
+        font-size: 14px;
+      }
+
+      .footer a {
+        text-decoration: none;
+        color: #007bff;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 480px) {
+        .main-title {
+          font-size: 22px;
+          top: 15px;
+        }
+
+        .signup-container {
+          padding: 20px 15px;
+        }
+
+        .signup-button {
+          font-size: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1
+      class="main-title"
+      style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"
+    >
+      HVF Leave Management System
+    </h1>
+
+    <div class="signup-container">
+      <h2>Create Account</h2>
+      <form action="signup.php" method="POST">
+        <div class="form-group">
+          <label for="fullname">Full Name</label>
+          <input type="text" id="fullname" name="fullname" required />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email ID</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" required />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Create Password</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+
+        <div class="form-group">
+          <label for="role">Choose Role</label>
+          <select id="role" name="role" required>
+            <option value="" disabled selected>Select your role</option>
+            <option value="officer">Officer</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+
+        <button type="submit" class="signup-button">Sign Up</button>
+      </form>
+
+      <div class="footer">
+        Already have an account? <a href="index.html">Login here</a>
+      </div>
+    </div>
+  </body>
+</html>
