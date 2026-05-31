@@ -1,0 +1,7 @@
+{
+  "name": "harish7750/hvf-eleave-management-system",
+  "description": "HVF E-Leave Management System",
+  "require": {
+    "php": ">=8.0"
+  }
+}
