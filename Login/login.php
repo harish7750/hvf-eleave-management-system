@@ -1,15 +1,7 @@
 <?php
 session_start();
 
-$host = "localhost";
-$user = "root";
-$pass = "";
-$db = "hvf_leave";
-
-$conn = new mysqli($host, $user, $pass, $db);
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
+include 'db_connect.php';
 
 $username = $_POST['username'];
 $password = $_POST['password'];
