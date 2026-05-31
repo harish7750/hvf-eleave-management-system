@@ -1,15 +1,5 @@
 <?php
-$host = "localhost";
-$user = "root";
-$pass = "";
-$db = "hvf_leave";
-
-// DB Connection
-$conn = new mysqli($host, $user, $pass, $db);
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-
+include 'db_connect.php';
 // Receive data
 $name = $_POST['name'];
 $username = $_POST['username'];
