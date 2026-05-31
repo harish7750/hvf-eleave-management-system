@@ -10,15 +10,7 @@ if (!isset($_SESSION['officer_id'])) {
 $officer_id = $_SESSION['officer_id'];
 
 // Database connection
-$host = "localhost";
-$user = "root";
-$pass = "";
-$db = "hvf_leave";
-
-$conn = new mysqli($host, $user, $pass, $db);
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
+include 'db_connect.php';
 
 // Fetch officer details
 $officer_sql = "SELECT * FROM officer WHERE id = ?";
