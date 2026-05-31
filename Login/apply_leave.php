@@ -2,15 +2,7 @@
 session_start();
 
 // Connect to DB
-$host = "localhost";
-$user = "root";
-$pass = "";
-$db = "hvf_leave";
-
-$conn = new mysqli($host, $user, $pass, $db);
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
+include 'db_connect.php';
 
 // Get officer ID from session
 $officer_id = $_SESSION['officer_id'] ?? 1; // Default 1 if session not set
