@@ -1,14 +1,9 @@
 <?php
-
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 $conn = new mysqli(
-    getenv('MYSQLHOST'),
-    getenv('MYSQLUSER'),
-    getenv('MYSQLPASSWORD'),
-    getenv('MYSQLDATABASE'),
-    getenv('MYSQLPORT')
+    "sqlXXX.epizy.com",
+    "epiz_xxxxx",
+    "your_password",
+    "epiz_xxxxx_hvf"
 );
 
 if ($conn->connect_error) {
