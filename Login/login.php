@@ -1,44 +1,41 @@
 <?php
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 session_start();
 
-include 'db_connect.php';
+require_once 'db_connect.php';
 
-// Check database connection
-if (!$conn) {
-    die("Database connection failed.");
+if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+    die("Invalid request method");
 }
 
-// Check form submission
-if ($_SERVER["REQUEST_METHOD"] != "POST") {
-    die("Invalid request.");
-}
+$username = isset($_POST['username']) ? trim($_POST['username']) : '';
+$password = isset($_POST['password']) ? trim($_POST['password']) : '';
+$role = isset($_POST['role']) ? trim($_POST['role']) : '';
 
-// Get form data safely
-$username = trim($_POST['username'] ?? '');
-$password = trim($_POST['password'] ?? '');
-$role = trim($_POST['role'] ?? '');
-
-// Validate input
 if (empty($username) || empty($password) || empty($role)) {
-    die("All fields are required.");
+    die("All fields are required");
 }
 
-// Fetch user
-$sql = "SELECT * FROM users WHERE username = ? AND role = ?";
+$sql = "SELECT id, username, password, role FROM users WHERE username = ? AND role = ?";
+
 $stmt = $conn->prepare($sql);
 
 if (!$stmt) {
-    die("SQL Error: " . $conn->error);
+    die("Prepare failed: " . $conn->error);
 }
 
 $stmt->bind_param("ss", $username, $role);
-$stmt->execute();
+
+if (!$stmt->execute()) {
+    die("Execute failed: " . $stmt->error);
+}
+
 $result = $stmt->get_result();
 
-if ($result->num_rows === 1) {
+if ($result && $result->num_rows > 0) {
 
     $row = $result->fetch_assoc();
 
@@ -48,24 +45,20 @@ if ($result->num_rows === 1) {
         $_SESSION['username'] = $row['username'];
         $_SESSION['role'] = $row['role'];
 
-        if ($role === 'officer') {
+        if ($row['role'] === 'admin') {
+            header("Location: admin_dashboard.php");
+            exit();
+        }
 
+        if ($row['role'] === 'officer') {
             $_SESSION['officer_id'] = $row['id'];
             header("Location: officer_dashboard.php");
             exit();
+        }
 
-        } elseif ($role === 'employee') {
-
+        if ($row['role'] === 'employee') {
             $_SESSION['employee_id'] = $row['id'];
-
-            // Change if you later create employee_dashboard.php
-            header("Location: employee.html");
-            exit();
-
-        } elseif ($role === 'admin') {
-
-            $_SESSION['admin_id'] = $row['id'];
-            header("Location: admin_dashboard.php");
+            header("Location: employee_dashboard.php");
             exit();
         }
 
@@ -73,7 +66,7 @@ if ($result->num_rows === 1) {
 
         echo "<script>
                 alert('Invalid password');
-                window.location.href='login.html';
+                window.location='index.html';
               </script>";
     }
 
@@ -81,10 +74,11 @@ if ($result->num_rows === 1) {
 
     echo "<script>
             alert('User not found or role mismatch');
-            window.location.href='login.html';
+            window.location='index.html';
           </script>";
 }
 
 $stmt->close();
 $conn->close();
+
 ?>
