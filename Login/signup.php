@@ -1,41 +1,103 @@
 <?php
-include 'db_connect.php';
-// Receive data
-$name = $_POST['name'];
-$username = $_POST['username'];
-$password = $_POST['password'];
-$designation = $_POST['designation'];
-$email = $_POST['email'];
-$role = $_POST['role'];
 
-// Hash password
-$hashed_password = password_hash($password, PASSWORD_DEFAULT);
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-// Insert into users table
-$user_sql = "INSERT INTO users (username, password, role) VALUES (?, ?, ?)";
-$user_stmt = $conn->prepare($user_sql);
-$user_stmt->bind_param("sss", $username, $hashed_password, $role);
+session_start();
 
-if ($user_stmt->execute()) {
-  $user_id = $conn->insert_id; // ✅ this gets the ID of the inserted user
+require_once 'db_connect.php';
 
-  // If officer, insert into officer table
-  if ($role === "officer") {
-    $officer_sql = "INSERT INTO officer (id, name, designation, email) VALUES (?, ?, ?, ?)";
-    $officer_stmt = $conn->prepare($officer_sql);
-    $officer_stmt->bind_param("isss", $user_id, $name, $designation, $email);
-
-    if ($officer_stmt->execute()) {
-      echo "<script>alert('Signup successful! You can now log in.'); window.location.href='login.html';</script>";
-    } else {
-      echo "<script>alert('Signup failed: Officer details not saved.'); window.history.back();</script>";
-    }
-  } else {
-    echo "<script>alert('Signup successful! You can now log in.'); window.location.href='index.html';</script>";
-  }
-} else {
-  echo "<script>alert('Signup failed: Username might already exist.'); window.history.back();</script>";
+if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+    die("Invalid request method");
 }
 
+$name = trim($_POST['name'] ?? '');
+$username = trim($_POST['username'] ?? '');
+$password = trim($_POST['password'] ?? '');
+$designation = trim($_POST['designation'] ?? '');
+$email = trim($_POST['email'] ?? '');
+$role = trim($_POST['role'] ?? '');
+
+if (
+    empty($name) ||
+    empty($username) ||
+    empty($password) ||
+    empty($role)
+) {
+    die("Required fields are missing");
+}
+
+$check_sql = "SELECT id FROM users WHERE username = ?";
+$check_stmt = $conn->prepare($check_sql);
+
+if (!$check_stmt) {
+    die("Prepare failed: " . $conn->error);
+}
+
+$check_stmt->bind_param("s", $username);
+$check_stmt->execute();
+$check_result = $check_stmt->get_result();
+
+if ($check_result->num_rows > 0) {
+
+    echo "<script>
+            alert('Username already exists');
+            window.history.back();
+          </script>";
+    exit();
+}
+
+$hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+$user_sql = "INSERT INTO users (username, password, role) VALUES (?, ?, ?)";
+$user_stmt = $conn->prepare($user_sql);
+
+if (!$user_stmt) {
+    die("Prepare failed: " . $conn->error);
+}
+
+$user_stmt->bind_param(
+    "sss",
+    $username,
+    $hashed_password,
+    $role
+);
+
+if (!$user_stmt->execute()) {
+    die("User insert failed: " . $user_stmt->error);
+}
+
+$user_id = $conn->insert_id;
+
+if ($role === "officer") {
+
+    $officer_sql = "INSERT INTO officer (id, name, designation, email)
+                    VALUES (?, ?, ?, ?)";
+
+    $officer_stmt = $conn->prepare($officer_sql);
+
+    if (!$officer_stmt) {
+        die("Prepare failed: " . $conn->error);
+    }
+
+    $officer_stmt->bind_param(
+        "isss",
+        $user_id,
+        $name,
+        $designation,
+        $email
+    );
+
+    if (!$officer_stmt->execute()) {
+        die("Officer insert failed: " . $officer_stmt->error);
+    }
+}
+
+echo "<script>
+        alert('Signup successful');
+        window.location.href='login.html';
+      </script>";
+
 $conn->close();
+
 ?>
